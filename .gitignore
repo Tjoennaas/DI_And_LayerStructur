@@ -1,0 +1,28 @@
+
+
+# Byggfiler
+bin/
+obj/
+out/
+bin/Debug/net8.8/
+
+# Brukerspesifikke innstillinger
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# Miljøfiler (hemmeligheter)
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+appsettings.json
+uke1.csproj
+uke1.sln
+
+
+# Oppstartskonfig (valgfritt å ignorere)
+launchSettings.json
