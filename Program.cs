@@ -27,6 +27,9 @@ app.MapGet("/", () => $"Velkommen til {appName}!");
 
 app.run() */
 
+//--------------------------------------//
+
+/*
 using Model;
 using Controller;
 
@@ -46,7 +49,7 @@ var app = builder.Build();
 app.MapControllers();
 
 app.Run();
-
+*/
 
 /*
 
@@ -65,7 +68,6 @@ They are added to the HTTP pipeline via Program.cs and executed in the order in 
 
 eks: 
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Required for UseAuthorization()
@@ -80,7 +82,30 @@ app.Run();
 
 */
 
+using Serilog;
 
+
+Log.Logger = new LoggerConfiguration()
+
+.WriteTo.Console()
+.WriteTo.File("logs/requests.txt", rollingInterval: RollingInterval.Day)
+.CreateLogger();
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseSerilog();
+
+// Required for UseAuthorization()
+builder.Services.AddAuthorization();
+var app = builder.Build();
+
+app.UseHttpsRedirection(); 
+app.UseAuthorization();
+// Optional: Serilog’s built-in middleware for request logging
+app.UseSerilogRequestLogging();
+
+
+app.MapGet("/", () => "Hello World!");
+app.Run(); 
 
 
 
