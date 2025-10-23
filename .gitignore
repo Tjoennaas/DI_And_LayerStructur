@@ -12,7 +12,7 @@ bin/Debug/net8.8/
 *.userosscache
 *.sln.docstates
 
-*.logs
+logs/
 *.log
 
 
