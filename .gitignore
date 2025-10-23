@@ -12,8 +12,9 @@ bin/Debug/net8.8/
 *.userosscache
 *.sln.docstates
 
-# Logs
+*.logs
 *.log
+
 
 # Miljøfiler (hemmeligheter)
 appsettings.Development.json
