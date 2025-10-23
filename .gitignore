@@ -21,9 +21,8 @@ appsettings.Development.json
 appsettings.Local.json
 secrets.json
 appsettings.json
-uke1.csproj
-uke1.sln
-
+ErrorHandlingAndLogging.csproj
+ErrorHandlingAndLogging.sln
 
 # Oppstartskonfig (valgfritt å ignorere)
 launchSettings.json
