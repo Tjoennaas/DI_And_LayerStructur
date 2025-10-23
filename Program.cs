@@ -121,4 +121,4 @@ app.UseAuthorization();
 app.UseMiddleware<LogRequest>();
 
 app.MapGet("/", () => "Hello World!");
-app.Run(); 
+app.Run();
