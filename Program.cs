@@ -66,22 +66,9 @@ They are added to the HTTP pipeline via Program.cs and executed in the order in 
  Overview built in middlewere : https://learn.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-9.0#built-in-middleware
 
 
-eks: 
+eks:  */
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Required for UseAuthorization()
-builder.Services.AddAuthorization();
-var app = builder.Build();
-
-app.UseHttpsRedirection(); 
-app.UseAuthorization();
-
-app.MapGet("/", () => "Hello World!");
-app.Run(); 
-
-*/
-
+/*
 using Serilog;
 
 
@@ -107,6 +94,31 @@ app.UseSerilogRequestLogging();
 app.MapGet("/", () => "Hello World!");
 app.Run(); 
 
+*/
+
+// Custom middleware for request logging:
+
+using Serilog;
+using Middleware;
 
 
+Log.Logger = new LoggerConfiguration()
 
+.WriteTo.Console()
+.WriteTo.File("logs/requests.txt", rollingInterval: RollingInterval.Day)
+.CreateLogger();
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseSerilog();
+
+// Required for UseAuthorization()
+builder.Services.AddAuthorization();
+var app = builder.Build();
+
+app.UseHttpsRedirection(); 
+app.UseAuthorization();
+
+app.UseMiddleware<LogRequest>();
+
+app.MapGet("/", () => "Hello World!");
+app.Run(); 
