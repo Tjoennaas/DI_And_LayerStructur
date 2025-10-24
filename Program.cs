@@ -1,5 +1,28 @@
 
- 
+ using Serilog;
+using Middleware;
+
+
+Log.Logger = new LoggerConfiguration()
+
+.WriteTo.Console()
+.WriteTo.File("logs/requests.txt", rollingInterval: RollingInterval.Day)
+.CreateLogger();
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseSerilog();
+
+// Required for UseAuthorization()
+builder.Services.AddAuthorization();
+var app = builder.Build();
+
+app.UseHttpsRedirection(); 
+app.UseAuthorization();
+
+app.UseMiddleware<LogRequest>();
+
+app.MapGet("/", () => "Hello World!");
+app.Run();
 
 
 //oppg.1  -----------------------------------------
@@ -96,29 +119,5 @@ app.Run();
 
 */
 
-// Custom middleware for request logging:
+// Custom middleware for logging request:
 
-using Serilog;
-using Middleware;
-
-
-Log.Logger = new LoggerConfiguration()
-
-.WriteTo.Console()
-.WriteTo.File("logs/requests.txt", rollingInterval: RollingInterval.Day)
-.CreateLogger();
-
-var builder = WebApplication.CreateBuilder(args);
-builder.Host.UseSerilog();
-
-// Required for UseAuthorization()
-builder.Services.AddAuthorization();
-var app = builder.Build();
-
-app.UseHttpsRedirection(); 
-app.UseAuthorization();
-
-app.UseMiddleware<LogRequest>();
-
-app.MapGet("/", () => "Hello World!");
-app.Run();

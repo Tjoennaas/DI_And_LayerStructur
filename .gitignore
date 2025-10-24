@@ -13,6 +13,7 @@ bin/Debug/net8.8/
 *.sln.docstates
 
 logs/
+
 *.log
 
 
