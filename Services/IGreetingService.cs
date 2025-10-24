@@ -1,5 +1,7 @@
 
+
+namespace Services;
 public interface IGreeting
 {
-    string Getmessag();
+    string GetMessag();
 }
